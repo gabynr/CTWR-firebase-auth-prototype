@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>LOGINNNNN</title>
+
+    <!-- update the version number as needed -->
+    <script defer src="/__/firebase/11.1.0/firebase-app-compat.js"></script>
+    <!-- include only the Firebase features as you need -->
+    <script defer src="/__/firebase/11.1.0/firebase-auth-compat.js"></script>
+    <script defer src="/__/firebase/11.1.0/firebase-database-compat.js"></script>
+    <script defer src="/__/firebase/11.1.0/firebase-firestore-compat.js"></script>
+    <script defer src="/__/firebase/11.1.0/firebase-functions-compat.js"></script>
+    <script defer src="/__/firebase/11.1.0/firebase-messaging-compat.js"></script>
+    <script defer src="/__/firebase/11.1.0/firebase-storage-compat.js"></script>
+    <script defer src="/__/firebase/11.1.0/firebase-analytics-compat.js"></script>
+    <script defer src="/__/firebase/11.1.0/firebase-remote-config-compat.js"></script>
+    <script defer src="/__/firebase/11.1.0/firebase-performance-compat.js"></script>
+    <!-- 
+      initialize the SDK after all desired features are loaded, set useEmulator to false
+      to avoid connecting the SDK to running emulators.
+    -->
+    <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+    
+
+    <style>
+      .button-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 80vh; 
+        flex-direction: column;
+      }
+
+     
+      h1 {
+        text-align: left; 
+        margin-top: 20px; 
+      }
+  
+      button {
+        padding: 10px 20px;
+        font-size: 20px;
+        border-radius: 10px;
+        background-color: aqua;
+      }
+    </style>
+
+  </head>
+  <body>
+    <h1>Login... Or Else</h1>
+
+    <div class="button-container">
+      <button onclick="googleLogin()">
+        Login with Google
+      </button>
+
+      <button onclick="githubLogin()">
+        Login with GitHub
+      </button>
+
+      <button onclick="signOut()">
+        Sign Out
+      </button>
+
+      <button onclick="listAllUsers()">
+        List All Users
+      </button>
+    </div>
+
+    <script src="app.js">
+      
+    </script>
+  </body>
+</html>

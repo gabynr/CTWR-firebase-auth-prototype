@@ -64,7 +64,7 @@ function googleLogin(){
     firebase.auth().signInWithPopup(provider)
         .then(result =>{
             const user = result.user;
-            saveUserToFirestore(user);
+            //saveUserToFirestore(user);
             document.write(`Hello ${user.displayName}`)
         })
         .catch(async (error) => 

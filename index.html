@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>LOGINNNNN</title>
+    <script type="importmap">
+      {
+        "imports": {
+          "firebase/app": "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js",
+          "firebase/auth": "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js"
+        }
+      }
+    </script>
+
+<!--
+     update the version number as needed
+    <script defer src="/__/firebase/11.1.0/firebase-app-compat.js"></script>
+    include only the Firebase features as you need
+    <script defer src="/__/firebase/11.1.0/firebase-auth-compat.js"></script>
+    <script defer src="/__/firebase/11.1.0/firebase-database-compat.js"></script>
+    <script defer src="/__/firebase/11.1.0/firebase-firestore-compat.js"></script>
+    <script defer src="/__/firebase/11.1.0/firebase-functions-compat.js"></script>
+    <script defer src="/__/firebase/11.1.0/firebase-messaging-compat.js"></script>
+    <script defer src="/__/firebase/11.1.0/firebase-storage-compat.js"></script>
+    <script defer src="/__/firebase/11.1.0/firebase-analytics-compat.js"></script>
+    <script defer src="/__/firebase/11.1.0/firebase-remote-config-compat.js"></script>
+    <script defer src="/__/firebase/11.1.0/firebase-performance-compat.js"></script>
+
+      initialize the SDK after all desired features are loaded, set useEmulator to false
+      to avoid connecting the SDK to running emulators.
+
+    <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+-->
+
+    <style>
+      .button-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 80vh; 
+        flex-direction: column;
+      }
+
+     
+      h1 {
+        text-align: left; 
+        margin-top: 20px; 
+      }
+  
+      button {
+        padding: 10px 20px;
+        font-size: 20px;
+        border-radius: 10px;
+        background-color: aqua;
+      }
+    </style>
+
+  </head>
+  <body>
+
+  <div id="button-container" class="button-container">
+    <h1>Login... Or Else</h1>
+    <button onclick="signInWithGoogle()">Login with Google</button>
+    <button onclick="signInWithGitHub()">Login with GitHub</button>
+    <!--button onclick="listAllUsers()">List All Users</--button -->
+  </div>
+
+  <h2 id="user-name"></h2>
+  <div id="logout-container" style="display: none;">
+    <button onclick="signOut()">Log Out</button>
+  </div>
+
+    <script type="module">
+      import { getFirebaseConfig } from "./firebase-config.js";
+      import { initializeApp } from "firebase/app";
+      import { getAuth, GoogleAuthProvider, GithubAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "firebase/auth";
+
+      (async () => {
+        const firebaseConfig = await getFirebaseConfig();
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        const providerGoogle = new GoogleAuthProvider();
+        const providerGitHub = new GithubAuthProvider();
+
+        window.signInWithGoogle = () => {
+          signInWithPopup(auth, providerGoogle)
+                  .then(result => {
+                    console.log("Google Auth:", result.user);
+                    document.getElementById("user-name").innerHTML = `Welcome, ${result.user.displayName}`;
+                    document.getElementById("button-container").style.display = "none";
+                    document.getElementById("logout-container").style.display = "block";
+                  })
+                  .catch(error => {
+                    console.error("Error Google Auth:", error);
+                  });
+        };
+
+
+
+        window.signInWithGitHub =  () =>{
+          signInWithPopup(auth, providerGitHub)
+                  .then(result => {
+                    console.log("Google Auth:", result.user);
+                    document.getElementById("user-name").innerHTML = `Welcome, ${result.user.displayName}`;
+                    document.getElementById("button-container").style.display = "none";
+                    document.getElementById("logout-container").style.display = "block";
+                  })
+                  .catch(error => {
+                    console.error("Error Google Auth:", error);
+                  });
+        };
+
+      window.signOut = async () => {
+        try {
+          await signOut(auth);
+          console.log("Sesión cerrada");
+          document.getElementById("button-container").style.display = "flex"; //
+          document.getElementById("logout-container").style.display = "none";
+        } catch (error) {
+          console.error("Error al cerrar sesión:", error);
+        }
+      };
+
+        onAuthStateChanged(auth, user => {
+          if (user) {
+            console.log("Usuario autenticado:", user.displayName);
+            document.getElementById("user-name").innerText = `Welcome, ${user.displayName}`;
+            document.getElementById("button-container").style.display = "none";
+            document.getElementById("logout-container").style.display = "block";
+          } else {
+            document.getElementById("user-name").innerText = "";
+            document.getElementById("button-container").style.display = "flex";
+            document.getElementById("logout-container").style.display = "none";
+          }
+        });
+      })();
+    </script>
+    <!--script src="public/app.js">
+      
+    </script-->
+
+  </body>
+</html>
